@@ -66,9 +66,7 @@ You should see:
 A page with two sections: Register and Login
 
 Request Flow Diagram
-yaml
-Copy
-Edit
+
 User (Browser)
    |
    v
@@ -89,8 +87,10 @@ User (Browser)
 
 🔄 Update Backend Version (Rollout)
 Set New Image Version
+
 kubectl set image deployment/backend backend=purveshpeche/backend-app:v2
 kubectl rollout status deployment backend
+
 
 ⏪ Rollback Backend
 kubectl rollout undo deployment backend
