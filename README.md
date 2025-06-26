@@ -22,17 +22,6 @@ This project demonstrates a simple **Employee Login system** using:
 
 ## 📦 Project Structure
 
-k8s-employee-login/
-├── backend/ # Node.js backend with login logic
-│ ├── server.js
-│ └── package.json
-├── frontend/ # Express server serving HTML form
-│ ├── index.html
-│ └── server.js
-├── k8s/ # Kubernetes YAML manifests
-│ ├── backend-deployment.yaml
-│ ├── frontend-deployment.yaml
-│ └── mongo-deployment.yaml
 
 
 ---
@@ -75,3 +64,36 @@ http://<MINIKUBE_IP>:32000
 You should see:
 
 A page with two sections: Register and Login
+
+Request Flow Diagram
+yaml
+Copy
+Edit
+User (Browser)
+   |
+   v
+[NodePort Service: frontend (32000)]
+   |
+   v
+[Frontend Pod (HTML + proxy)]
+   |
+   v
+[Backend Service: backend (5000)]
+   |
+   v
+[Backend Pod (Node.js)]
+   |
+   v
+[MongoDB Service & Pod]
+
+
+🔄 Update Backend Version (Rollout)
+Set New Image Version
+kubectl set image deployment/backend backend=purveshpeche/backend-app:v2
+kubectl rollout status deployment backend
+
+⏪ Rollback Backend
+kubectl rollout undo deployment backend
+
+Optional: view history
+kubectl rollout history deployment backend
